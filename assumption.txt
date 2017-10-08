@@ -1,0 +1,19 @@
+
+
+Assumptions: 
+
+1.	We have to show all discount amount if total bill > 200 for example
+If total bill = 340 then 20% discount, on amount greater than 200 which is = 140 so 20% discount is = 28
+And 10% discount on remaining 10% (200) which is = 20
+So result should display both discount amount (20% = 28 & 10% = 20) as shown below
+
+Total				    340.0
+Discount - 20.0%		28.0
+Discount - 10.0%		20.0
+Final Amount			292.0
+
+2. Have added main file from where program can be run.
+3. Added test cases for ItemizedBillControllerTest which is entry point for program.
+
+
+story 2 is not completed as it is mentioned optional. (needed clearity on how to apply rules & display result)
