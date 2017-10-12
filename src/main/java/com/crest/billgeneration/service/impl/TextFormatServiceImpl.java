@@ -16,23 +16,26 @@ public class TextFormatServiceImpl implements DisplayFormatService {
     @Override
     public void display(BillResponse billResponse) {
 
-        System.out.println("Item Name\t\tCount\tPrice (INR)");
+        System.out.println("***************** TEXT Format *****************");
+
+        System.out.println(String.format("%-25s","Item Name") + String.format("%-10s","Count")
+                + String.format("%-15s","Price (INR)"));
 
         List<ItemResult> itemResults = billResponse.getItemResults();
 
-        itemResults.stream().forEach(item -> System.out.println(item.getBeverage().getName()+"\t\t"
-        +item.getCount()+"\t"+item.getPrice()));
+        itemResults.stream().forEach(item -> System.out.println(String.format("%-25s",item.getBeverage().getName())+
+                String.format("%-10s",item.getCount())+String.format("%-15s",item.getPrice())));
 
-        System.out.println("Total\t\t"+billResponse.getTotal());
+        System.out.println(String.format("%-35s","Total")+billResponse.getTotal());
 
         List<Discount> discounts = billResponse.getDiscounts();
 
         if(!discounts.isEmpty()){
 
-            discounts.stream().forEach(discount -> System.out.println("Discount - "+
-                    discount.getDiscountPercentage()+"%\t\t"+discount.getDiscountAmount() ));
+            discounts.stream().forEach(discount -> System.out.println(String.format("%-35s","Discount - "+
+                    discount.getDiscountPercentage()+"%")+discount.getDiscountAmount() ));
 
-            System.out.println("Final Amount\t\t"+billResponse.getFinalAmount());
+            System.out.println(String.format("%-35s","Final Amount")+billResponse.getFinalAmount());
 
         }
 
