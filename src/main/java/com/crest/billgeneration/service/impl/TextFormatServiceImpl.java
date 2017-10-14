@@ -24,7 +24,7 @@ public class TextFormatServiceImpl implements DisplayFormatService {
         List<ItemResult> itemResults = billResponse.getItemResults();
 
         itemResults.stream().forEach(item -> response.append(NEW_LINE).
-                append(String.format("%-25s",item.getBeverage().getName())).
+                append(String.format("%-25s",item.getBeverage())).
                 append(String.format("%-10s",item.getCount())).
                 append(String.format("%-15s",item.getPrice())));
 

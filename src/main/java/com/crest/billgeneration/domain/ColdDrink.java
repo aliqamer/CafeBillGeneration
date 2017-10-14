@@ -4,25 +4,31 @@ package com.crest.billgeneration.domain;
  * @author Ali
  * @since 08/10/17
  */
-public enum ColdDrink implements Beverage {
+public abstract class ColdDrink implements Beverage {
 
-    COKE("Coke", 20), PEPSI("Pepsi", 20), SPRITE("Sprite", 15);
+    private final String name;
+    private final String code;
+    private final double cost;
 
-    private String name;
-    private Integer cost;
-
-    ColdDrink(String name, int cost) {
-        this.name = "Cold Drinks - " +name;
+    public ColdDrink(String name, String code, double cost){
+        this.name = name;
+        this.code = code;
         this.cost = cost;
     }
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
-    public Integer getCost() {
-        return this.cost;
+    public String getCode() {
+        return code;
     }
+
+    @Override
+    public double getCost() {
+        return cost;
+    }
+
 }

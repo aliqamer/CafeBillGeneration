@@ -8,15 +8,15 @@ import com.crest.billgeneration.domain.Beverage;
  */
 public class ItemResult {
 
-    private Beverage beverage;
+    private String beverage;
     private int count;
     private double price;
 
-    public Beverage getBeverage() {
+    public String getBeverage() {
         return beverage;
     }
 
-    public void setBeverage(Beverage beverage) {
+    public void setBeverage(String beverage) {
         this.beverage = beverage;
     }
 

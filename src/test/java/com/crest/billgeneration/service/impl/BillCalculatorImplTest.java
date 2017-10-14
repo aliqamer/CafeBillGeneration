@@ -4,20 +4,16 @@ import com.crest.billgeneration.dto.BillResponse;
 import com.crest.billgeneration.dto.Discount;
 import com.crest.billgeneration.dto.ItemRequest;
 import com.crest.billgeneration.dto.ItemResult;
-import com.crest.billgeneration.domain.Beverage;
-import com.crest.billgeneration.domain.Coffee;
-import com.crest.billgeneration.domain.ColdDrink;
-import com.crest.billgeneration.domain.Tea;
-import com.crest.billgeneration.util.DiscountPerItem;
+import com.crest.billgeneration.util.InventoryInitializer;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.crest.billgeneration.domain.BeverageInventory.Code.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class BillCalculatorImplTest {
 
@@ -26,13 +22,14 @@ public class BillCalculatorImplTest {
     @Before
     public void setUp() throws Exception {
 
+        InventoryInitializer.initialize();
     }
 
     @Test
     public void calculateBill_shouldReturnValidBillResponse() throws Exception {
 
-        List<ItemRequest> itemRequests = asList(getItemRequest(Coffee.LATTE, 1),
-        getItemRequest(Tea.ICE, 3), getItemRequest(ColdDrink.PEPSI, 2));
+        List<ItemRequest> itemRequests = asList(getItemRequest(LATTE_COFFEE, 1),
+        getItemRequest(ICE_TEA, 3), getItemRequest(PEPSI_COLD_DRINK, 2));
 
         BillResponse billResponse = billCalculator.calculateBill(itemRequests);
 
@@ -53,9 +50,9 @@ public class BillCalculatorImplTest {
     }
 
     private List<ItemResult> getItemResults() {
-        return asList(getItemResult(Coffee.LATTE,1,30),
-                    getItemResult(Tea.ICE,3,45),
-                    getItemResult(ColdDrink.PEPSI,2,40));
+        return asList(getItemResult(LATTE_COFFEE,1,30),
+                    getItemResult(ICE_TEA,3,45),
+                    getItemResult(PEPSI_COLD_DRINK,2,40));
     }
 
     private List<Discount> getDiscounts() {
@@ -67,11 +64,11 @@ public class BillCalculatorImplTest {
         return discounts;
     }
 
-    private ItemRequest getItemRequest(Beverage beverage, int quantity) {
+    private ItemRequest getItemRequest(String beverage, int quantity) {
         return new ItemRequest(beverage, quantity);
     }
 
-    private ItemResult getItemResult(Beverage beverage, int count, double price) {
+    private ItemResult getItemResult(String beverage, int count, double price) {
 
         ItemResult itemResult = new ItemResult();
         itemResult.setBeverage(beverage);

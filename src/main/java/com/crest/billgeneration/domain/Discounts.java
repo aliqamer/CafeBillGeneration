@@ -16,14 +16,14 @@ public final class Discounts {
 
     public Discounts(){
 
-        Offer offerOnLatte = new Offer(Coffee.LATTE, 2, 25);
+        /*Offer offerOnLatte = new Offer(Coffee.LATTE, 2, 25);
         discountsPerItemMap.put(Coffee.LATTE, offerOnLatte);
 
         Offer offerOnLemonTea = new Offer(Tea.LEMON, 2, 10);
         discountsPerItemMap.put(Tea.LEMON, offerOnLemonTea);
 
         Offer offerOnSprite = new Offer(ColdDrink.SPRITE, 3, 5);
-        discountsPerItemMap.put(ColdDrink.SPRITE, offerOnSprite);
+        discountsPerItemMap.put(ColdDrink.SPRITE, offerOnSprite);*/
 
     }
 

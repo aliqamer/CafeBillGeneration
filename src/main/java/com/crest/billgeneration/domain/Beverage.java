@@ -8,5 +8,7 @@ public interface Beverage {
 
     String getName();
 
-    Integer getCost();
+    String getCode();
+
+    double getCost();
 }

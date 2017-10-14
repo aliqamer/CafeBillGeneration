@@ -1,5 +1,7 @@
 package com.crest.billgeneration.service.impl;
 
+import com.crest.billgeneration.domain.Beverage;
+import com.crest.billgeneration.domain.BeverageInventory;
 import com.crest.billgeneration.dto.BillResponse;
 import com.crest.billgeneration.dto.Discount;
 import com.crest.billgeneration.dto.ItemRequest;
@@ -18,6 +20,8 @@ import static java.util.stream.Collectors.toList;
  * @since 08/10/17
  */
 public class BillCalculatorImpl implements BillCalculator {
+
+    private BeverageInventory inventory = InventoryInitializer.inventory;
 
     private DiscountChain discountChain = DiscountChainUtil.getChain();
 
@@ -71,43 +75,14 @@ public class BillCalculatorImpl implements BillCalculator {
 
         return itemRequests.stream().map(itemRequest -> {
 
+            final Beverage beverage = inventory.getItem(itemRequest.getBeverage());
             ItemResult itemResult = new ItemResult();
             itemResult.setBeverage(itemRequest.getBeverage());
             itemResult.setCount(itemRequest.getQuantity());
-            itemResult.setPrice(itemRequest.getBeverage().getCost() * itemRequest.getQuantity());
+            itemResult.setPrice(beverage.getCost() * itemRequest.getQuantity());
 
             return itemResult;
 
         }).collect(toList());
     }
-
-    /*private DiscountService discountService = null;//new DiscountOnAllItems();
-
-    public void setDiscountService(DiscountService discountService) {
-        this.discountService = discountService;
-    }
-
-    @Override
-    public BillResponse calculateBill(List<ItemRequest> itemRequests) {
-
-        List<ItemResult> itemResults = getItemResults(itemRequests);
-
-        BillResponse billResponse = null;//discountService.calculateDiscount(itemResults);
-
-        return billResponse;
-    }
-
-    private List<ItemResult> getItemResults(List<ItemRequest> itemRequests) {
-
-        return itemRequests.stream().map(itemRequest -> {
-
-                ItemResult itemResult = new ItemResult();
-                itemResult.setBeverage(itemRequest.getBeverage());
-                itemResult.setCount(itemRequest.getQuantity());
-                itemResult.setPrice(itemRequest.getBeverage().getCost() * itemRequest.getQuantity());
-
-                return itemResult;
-
-            }).collect(toList());
-    }*/
 }

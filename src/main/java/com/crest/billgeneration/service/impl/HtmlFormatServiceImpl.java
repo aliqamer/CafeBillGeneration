@@ -26,7 +26,7 @@ public class HtmlFormatServiceImpl implements DisplayFormatService {
         List<ItemResult> itemResults = billResponse.getItemResults();
 
         itemResults.stream().forEach(item -> response.append(NEW_LINE)
-                .append(spaceAppender(item.getBeverage().getName(),30))
+                .append(spaceAppender(item.getBeverage(),30))
                 .append(spaceAppender(String.valueOf(item.getCount()),10))
                 .append(spaceAppender(String.valueOf(item.getPrice()),15)));
 
