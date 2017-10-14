@@ -40,7 +40,9 @@ public class ItemizedBillController {
 
         displayFormatService = DisplayFactory.getDisplayFormatter(billFormat);
 
-        displayFormatService.display(billResponse);
+        String displayResponse = displayFormatService.display(billResponse);
+
+        System.out.println(displayResponse);
 
     }
 

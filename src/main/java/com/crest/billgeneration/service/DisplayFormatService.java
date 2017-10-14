@@ -8,6 +8,8 @@ import com.crest.billgeneration.dto.BillResponse;
  */
 public interface DisplayFormatService {
 
+    String NEW_LINE = "\n";
+
     //it follows SRP & OCP
-    void display(BillResponse billResponse);
+    String display(BillResponse billResponse);
 }

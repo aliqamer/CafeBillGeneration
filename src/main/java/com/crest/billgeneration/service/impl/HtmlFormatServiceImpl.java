@@ -15,34 +15,39 @@ public class HtmlFormatServiceImpl implements DisplayFormatService {
 
 
     @Override
-    public void display(BillResponse billResponse) {
+    public String display(BillResponse billResponse) {
 
-        System.out.println("<html>");
-        String column1 = "Item Name";
-        String column2 = "Count";
-        String column3 = "Price (INR)";
+        StringBuilder response = new StringBuilder("********************** <html> **********************");
 
-        System.out.println(spaceAppender(column1,35)+ spaceAppender(column2,10)+ spaceAppender(column3,15));
+        response.append(NEW_LINE).append(spaceAppender("Item Name",30))
+                .append(spaceAppender("Count",10))
+                .append(spaceAppender("Price (INR)",15));
 
         List<ItemResult> itemResults = billResponse.getItemResults();
 
-        itemResults.stream().forEach(item -> System.out.println(spaceAppender(item.getBeverage().getName(),35)+
-                spaceAppender(String.valueOf(item.getCount()),10)+ spaceAppender(String.valueOf(item.getPrice()),15)));
+        itemResults.stream().forEach(item -> response.append(NEW_LINE)
+                .append(spaceAppender(item.getBeverage().getName(),30))
+                .append(spaceAppender(String.valueOf(item.getCount()),10))
+                .append(spaceAppender(String.valueOf(item.getPrice()),15)));
 
-        System.out.println(spaceAppender("Total",45)+billResponse.getTotal());
+        response.append(NEW_LINE).append(spaceAppender("Total",40)).append(billResponse.getTotal());
 
         List<Discount> discounts = billResponse.getDiscounts();
 
         if(!discounts.isEmpty()){
 
-            discounts.stream().forEach(discount -> System.out.println(spaceAppender("Discount - "+
-                    discount.getDiscountPercentage()+"%",45)+discount.getDiscountAmount() ));
+            discounts.stream().forEach(discount -> response.append(NEW_LINE)
+                    .append("Discount - ")
+                    .append(discount.getDiscountPercentage())
+                    .append(spaceAppender("%",25))
+                    .append(discount.getDiscountAmount() ));
 
-            System.out.println(spaceAppender("Final Amount",45)+billResponse.getFinalAmount());
+            response.append(NEW_LINE).append(spaceAppender("Final Amount",40)).append(billResponse.getFinalAmount());
 
         }
 
-        System.out.println("</html>");
+        response.append(NEW_LINE).append("********************** </html> *********************");
+        return response.toString();
     }
 
     private String spaceAppender(String str, int length) {

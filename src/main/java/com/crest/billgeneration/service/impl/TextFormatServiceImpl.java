@@ -14,30 +14,36 @@ import java.util.List;
 public class TextFormatServiceImpl implements DisplayFormatService {
 
     @Override
-    public void display(BillResponse billResponse) {
+    public String display(BillResponse billResponse) {
 
-        System.out.println("***************** TEXT Format *****************");
+        StringBuilder response = new StringBuilder("***************** TEXT Format *****************");
 
-        System.out.println(String.format("%-25s","Item Name") + String.format("%-10s","Count")
-                + String.format("%-15s","Price (INR)"));
+        response.append(NEW_LINE).append(String.format("%-25s","Item Name")).append(String.format("%-10s","Count"))
+                .append(String.format("%-15s","Price (INR)"));
 
         List<ItemResult> itemResults = billResponse.getItemResults();
 
-        itemResults.stream().forEach(item -> System.out.println(String.format("%-25s",item.getBeverage().getName())+
-                String.format("%-10s",item.getCount())+String.format("%-15s",item.getPrice())));
+        itemResults.stream().forEach(item -> response.append(NEW_LINE).
+                append(String.format("%-25s",item.getBeverage().getName())).
+                append(String.format("%-10s",item.getCount())).
+                append(String.format("%-15s",item.getPrice())));
 
-        System.out.println(String.format("%-35s","Total")+billResponse.getTotal());
+        response.append(NEW_LINE).append(String.format("%-35s","Total")).append(billResponse.getTotal());
 
         List<Discount> discounts = billResponse.getDiscounts();
 
         if(!discounts.isEmpty()){
 
-            discounts.stream().forEach(discount -> System.out.println(String.format("%-35s","Discount - "+
-                    discount.getDiscountPercentage()+"%")+discount.getDiscountAmount() ));
+            discounts.stream().forEach(discount -> response.append(NEW_LINE).
+                    append("Discount - ").
+                    append(discount.getDiscountPercentage()).append(String.format("%-20s","%")).
+                    append(discount.getDiscountAmount()));
 
-            System.out.println(String.format("%-35s","Final Amount")+billResponse.getFinalAmount());
+            response.append(NEW_LINE).append(String.format("%-35s","Final Amount")).append(billResponse.getFinalAmount());
 
         }
+
+        return response.toString();
 
     }
 }
