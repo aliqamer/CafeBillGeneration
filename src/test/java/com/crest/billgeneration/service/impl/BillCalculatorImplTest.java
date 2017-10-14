@@ -4,7 +4,7 @@ import com.crest.billgeneration.dto.BillResponse;
 import com.crest.billgeneration.dto.Discount;
 import com.crest.billgeneration.dto.ItemRequest;
 import com.crest.billgeneration.dto.ItemResult;
-import com.crest.billgeneration.util.InventoryInitializer;
+import com.crest.billgeneration.domain.BeverageInventoryInitializer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class BillCalculatorImplTest {
     @Before
     public void setUp() throws Exception {
 
-        InventoryInitializer.initialize();
+        BeverageInventoryInitializer.initialize();
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.crest.billgeneration.validate;
 import com.crest.billgeneration.dto.ItemRequest;
 import com.crest.billgeneration.exception.InvalidItemCodeException;
 import com.crest.billgeneration.exception.InvalidQuantityException;
-import com.crest.billgeneration.util.InventoryInitializer;
+import com.crest.billgeneration.domain.BeverageInventoryInitializer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class ItemValidatorTest {
     @Before
     public void setUp() throws Exception {
 
-        InventoryInitializer.initialize();
+        BeverageInventoryInitializer.initialize();
     }
 
     @Test(expected = InvalidItemCodeException.class)

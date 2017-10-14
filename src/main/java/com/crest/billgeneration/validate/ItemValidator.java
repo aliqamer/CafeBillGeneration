@@ -4,7 +4,7 @@ import com.crest.billgeneration.domain.BeverageInventory;
 import com.crest.billgeneration.dto.ItemRequest;
 import com.crest.billgeneration.exception.InvalidItemCodeException;
 import com.crest.billgeneration.exception.InvalidQuantityException;
-import com.crest.billgeneration.util.InventoryInitializer;
+import com.crest.billgeneration.domain.BeverageInventoryInitializer;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import static java.util.Objects.isNull;
  */
 public class ItemValidator {
 
-    private BeverageInventory inventory = InventoryInitializer.inventory;
+    private BeverageInventory inventory = BeverageInventoryInitializer.inventory;
 
     /**
      * This method valids whether input has invalid quantity like 0 or negative

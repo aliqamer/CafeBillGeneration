@@ -1,10 +1,8 @@
-package com.crest.billgeneration.util;
-
-import com.crest.billgeneration.domain.*;
+package com.crest.billgeneration.domain;
 
 import static com.crest.billgeneration.domain.BeverageInventory.Code.*;
 
-public class InventoryInitializer {
+public class BeverageInventoryInitializer {
 
     public static BeverageInventory inventory = new BeverageInventory();
 

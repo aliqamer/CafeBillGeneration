@@ -3,7 +3,7 @@ package com.crest.billgeneration;
 import com.crest.billgeneration.controller.ItemizedBillController;
 import com.crest.billgeneration.domain.BillFormat;
 import com.crest.billgeneration.dto.ItemRequest;
-import com.crest.billgeneration.util.InventoryInitializer;
+import com.crest.billgeneration.domain.BeverageInventoryInitializer;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class BillCalculatorMain {
 
         BillCalculatorMain billCalculatorMain = new BillCalculatorMain();
 
-        InventoryInitializer.initialize();
+        BeverageInventoryInitializer.initialize();
         billCalculatorMain.calculator();
     }
 

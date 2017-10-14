@@ -2,12 +2,12 @@ package com.crest.billgeneration.service.impl;
 
 import com.crest.billgeneration.domain.Beverage;
 import com.crest.billgeneration.domain.BeverageInventory;
+import com.crest.billgeneration.domain.BeverageInventoryInitializer;
 import com.crest.billgeneration.dto.BillResponse;
 import com.crest.billgeneration.dto.Discount;
 import com.crest.billgeneration.dto.ItemRequest;
 import com.crest.billgeneration.dto.ItemResult;
 import com.crest.billgeneration.service.BillCalculator;
-import com.crest.billgeneration.service.DiscountService;
 import com.crest.billgeneration.util.*;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toList;
  */
 public class BillCalculatorImpl implements BillCalculator {
 
-    private BeverageInventory inventory = InventoryInitializer.inventory;
+    private BeverageInventory inventory = BeverageInventoryInitializer.inventory;
 
     private DiscountChain discountChain = DiscountChainUtil.getChain();
 

@@ -4,7 +4,7 @@ import com.crest.billgeneration.dto.ItemRequest;
 import com.crest.billgeneration.domain.*;
 import com.crest.billgeneration.service.BillCalculator;
 import com.crest.billgeneration.service.impl.BillCalculatorImpl;
-import com.crest.billgeneration.util.InventoryInitializer;
+import com.crest.billgeneration.domain.BeverageInventoryInitializer;
 import com.crest.billgeneration.validate.ItemValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class ItemizedBillControllerTest {
     @Before
     public void setUp() throws Exception {
 
-        InventoryInitializer.initialize();
+        BeverageInventoryInitializer.initialize();
         controller.setItemValidator(itemValidator);
         controller.setBillCalculator(billCalculator);
     }
