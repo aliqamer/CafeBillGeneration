@@ -73,16 +73,16 @@ public class BillCalculatorImpl implements BillCalculator {
      */
     private List<ItemResult> getItemResults(List<ItemRequest> itemRequests) {
 
-        return itemRequests.stream().map(itemRequest -> {
+        return itemRequests.stream().map(itemRequest -> getItemResult(itemRequest, inventory.getItem(itemRequest.getBeverage()))).collect(toList());
+    }
 
-            final Beverage beverage = inventory.getItem(itemRequest.getBeverage());
-            ItemResult itemResult = new ItemResult();
-            itemResult.setBeverage(itemRequest.getBeverage());
-            itemResult.setCount(itemRequest.getQuantity());
-            itemResult.setPrice(beverage.getCost() * itemRequest.getQuantity());
+    private ItemResult getItemResult(ItemRequest itemRequest, Beverage beverage) {
 
-            return itemResult;
+        ItemResult itemResult = new ItemResult();
+        itemResult.setBeverage(beverage.getName());
+        itemResult.setCount(itemRequest.getQuantity());
+        itemResult.setPrice(beverage.getCost() * itemRequest.getQuantity());
 
-        }).collect(toList());
+        return itemResult;
     }
 }
