@@ -6,16 +6,16 @@ package com.crest.billgeneration.dto;
  */
 public final class ItemRequest {
 
-    private final String beverage;
+    private final String code;
     private final int quantity;
 
     public ItemRequest(String item, int quantity){
-        this.beverage = item;
+        this.code = item;
         this.quantity = quantity;
     }
 
-    public String getBeverage() {
-        return beverage;
+    public String getCode() {
+        return code;
     }
 
     public int getQuantity() {

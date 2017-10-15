@@ -1,6 +1,7 @@
 package com.crest.billgeneration.util;
 
 import com.crest.billgeneration.dto.Discount;
+import com.crest.billgeneration.dto.ItemResult;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface DiscountChain {
 
     void setNextDiscount(DiscountChain request);
 
-    void calculateDiscount(double total, List<Discount> discounts);
+    void calculateDiscount(List<ItemResult> itemResults, List<Discount> discounts);
 
     /**
      * This is common method for all subclasses
@@ -28,5 +29,17 @@ public interface DiscountChain {
         discount.setDiscountAmount(discountAmount);
 
         return discount;
+    }
+
+    default double getRemainingTotalAmount(List<ItemResult> itemResults, List<Discount> discounts) {
+        return getTotalAmount(itemResults) - getTotalDiscountAmount(discounts);
+    }
+
+    default double getTotalDiscountAmount(List<Discount> discounts) {
+        return discounts.stream().mapToDouble(discount -> discount.getDiscountAmount()).sum();
+    }
+
+    default double getTotalAmount(List<ItemResult> itemResults) {
+        return itemResults.stream().mapToDouble(item -> item.getPrice()).sum();
     }
 }

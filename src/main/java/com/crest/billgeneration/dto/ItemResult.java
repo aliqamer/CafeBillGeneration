@@ -11,6 +11,7 @@ public class ItemResult {
     private String beverage;
     private int count;
     private double price;
+    private String code;
 
     public String getBeverage() {
         return beverage;
@@ -36,6 +37,14 @@ public class ItemResult {
         this.price = price;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,7 +54,8 @@ public class ItemResult {
 
         if (count != that.count) return false;
         if (Double.compare(that.price, price) != 0) return false;
-        return beverage.equals(that.beverage);
+        if (!beverage.equals(that.beverage)) return false;
+        return code.equals(that.code);
     }
 
     @Override
@@ -56,6 +66,7 @@ public class ItemResult {
         result = 31 * result + count;
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + code.hashCode();
         return result;
     }
 }

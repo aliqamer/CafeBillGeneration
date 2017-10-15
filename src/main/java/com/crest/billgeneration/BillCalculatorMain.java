@@ -30,8 +30,8 @@ public class BillCalculatorMain {
         controller.calculateBill(itemRequests, BillFormat.HTML);
     }
 
-    private ItemRequest getItemRequest(String item, int quantity) {
-        return new ItemRequest(item, quantity);
+    private ItemRequest getItemRequest(String code, int quantity) {
+        return new ItemRequest(code, quantity);
     }
 
 }

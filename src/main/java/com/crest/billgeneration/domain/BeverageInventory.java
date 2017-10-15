@@ -7,6 +7,8 @@ public class BeverageInventory {
 
     private final Map<String,Beverage> beveragesMap = new HashMap<>();
 
+    private final Map<String,Offer> discountMap = new HashMap<>();
+
     public void addItem(String code, Beverage beverage){
         beveragesMap.put(code, beverage);
     }
@@ -17,6 +19,18 @@ public class BeverageInventory {
 
     public Beverage getItem(String code){
         return beveragesMap.get(code);
+    }
+
+    public void addDiscount(String code, Offer offer){
+        discountMap.put(code, offer);
+    }
+
+    public void removeDiscount(String code){
+        discountMap.remove(code);
+    }
+
+    public Offer getDiscount(String code){
+        return discountMap.get(code);
     }
 
     public static class Code {

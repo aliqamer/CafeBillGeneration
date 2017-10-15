@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toList;
  */
 public class BillCalculatorImpl implements BillCalculator {
 
-    private BeverageInventory inventory = BeverageInventoryInitializer.inventory;
+    private BeverageInventory inventory = BeverageInventoryInitializer.getInventory();
 
     private DiscountChain discountChain = DiscountChainUtil.getChain();
 
@@ -36,13 +36,13 @@ public class BillCalculatorImpl implements BillCalculator {
 
         List<ItemResult> itemResults = getItemResults(itemRequests);
 
-        double totalAmount = itemResults.stream().mapToDouble(item -> item.getPrice()).sum();
-
         List<Discount> discounts = new ArrayList<>();
 
-        discountChain.calculateDiscount(totalAmount, discounts);
+        discountChain.calculateDiscount(itemResults, discounts);
 
         double totalDiscountAmount = discounts.stream().mapToDouble(discount -> discount.getDiscountAmount()).sum();
+
+        double totalAmount = itemResults.stream().mapToDouble(item -> item.getPrice()).sum();
 
         return getBillResponse(itemResults, totalAmount, discounts, totalDiscountAmount);
     }
@@ -73,15 +73,18 @@ public class BillCalculatorImpl implements BillCalculator {
      */
     private List<ItemResult> getItemResults(List<ItemRequest> itemRequests) {
 
-        return itemRequests.stream().map(itemRequest -> getItemResult(itemRequest, inventory.getItem(itemRequest.getBeverage()))).collect(toList());
+        return itemRequests.stream().map(itemRequest ->
+                getItemResult(itemRequest, inventory.getItem(itemRequest.getCode()))).collect(toList());
     }
 
     private ItemResult getItemResult(ItemRequest itemRequest, Beverage beverage) {
 
         ItemResult itemResult = new ItemResult();
+
         itemResult.setBeverage(beverage.getName());
-        itemResult.setCount(itemRequest.getQuantity());
         itemResult.setPrice(beverage.getCost() * itemRequest.getQuantity());
+        itemResult.setCount(itemRequest.getQuantity());
+        itemResult.setCode(itemRequest.getCode());
 
         return itemResult;
     }

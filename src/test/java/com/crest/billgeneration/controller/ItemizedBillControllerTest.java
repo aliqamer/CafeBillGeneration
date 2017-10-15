@@ -41,6 +41,16 @@ public class ItemizedBillControllerTest {
     }
 
     @Test
+    public void calculateBill_shouldApplyPerItemDiscount_whenAmountGreaterThan100() throws Exception {
+
+        List<ItemRequest> itemRequests = asList(getItemRequest(LATTE_COFFEE, 2),
+                getItemRequest(ICE_TEA, 3), getItemRequest(SPRITE_COLD_DRINK, 2));
+
+        controller.calculateBill(itemRequests, BillFormat.TEXT);
+
+    }
+
+    @Test
     public void calculateBill_shouldApply10PercentDiscount_whenAmountGreaterThan100_HtmlFormat() throws Exception {
 
         List<ItemRequest> itemRequests = asList(getItemRequest(LATTE_COFFEE, 1),

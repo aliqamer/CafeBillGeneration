@@ -4,7 +4,11 @@ import static com.crest.billgeneration.domain.BeverageInventory.Code.*;
 
 public class BeverageInventoryInitializer {
 
-    public static BeverageInventory inventory = new BeverageInventory();
+    private static BeverageInventory inventory = new BeverageInventory();
+
+    public static BeverageInventory getInventory(){
+        return inventory;
+    }
 
     public static void initialize(){
 
@@ -31,6 +35,14 @@ public class BeverageInventoryInitializer {
         inventory.addItem(ICE_TEA, iceTea);
         inventory.addItem(LEMON_TEA, lemonTea);
         inventory.addItem(MASALA_TEA, masalaTea);
+
+        Offer offerOnLatteCoffee = new Offer(LATTE_COFFEE, 2, 25);
+        Offer offerOnLemonTea = new Offer(LEMON_TEA, 2, 25);
+        Offer offerOnSprite = new Offer(SPRITE_COLD_DRINK, 2, 25);
+
+        inventory.addDiscount(LATTE_COFFEE, offerOnLatteCoffee);
+        inventory.addDiscount(LEMON_TEA, offerOnLemonTea);
+        inventory.addDiscount(SPRITE_COLD_DRINK, offerOnSprite);
 
     }
 

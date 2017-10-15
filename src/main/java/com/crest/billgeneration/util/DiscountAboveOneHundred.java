@@ -1,6 +1,7 @@
 package com.crest.billgeneration.util;
 
 import com.crest.billgeneration.dto.Discount;
+import com.crest.billgeneration.dto.ItemResult;
 
 import java.util.List;
 
@@ -19,15 +20,17 @@ public class DiscountAboveOneHundred implements DiscountChain {
 
     /**
      * This method apply discount if total amount is > 100 else does nothing
-     * @param total
+     * @param itemResults
      * @param discounts
      */
     @Override
-    public void calculateDiscount(double total, List<Discount> discounts) {
+    public void calculateDiscount(List<ItemResult> itemResults , List<Discount> discounts) {
 
-        if(total > 100){
+        double finalAmount = getRemainingTotalAmount(itemResults, discounts);
 
-            double discountAboveOneHundred = total * 0.10;
+        if(finalAmount > 100){
+
+            double discountAboveOneHundred = finalAmount * 0.10;
             discounts.add(getDiscount(discountAboveOneHundred, 10));
 
         }

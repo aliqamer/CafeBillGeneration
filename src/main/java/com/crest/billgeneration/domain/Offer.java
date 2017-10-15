@@ -9,17 +9,17 @@ package com.crest.billgeneration.domain;
 //This class is optional for user story 2
 public final class Offer {
 
-    private final Beverage beverage;
+    private final String beverage;
     private final int count;
     private final double discountPercentage;
 
-    public Offer(Beverage beverage, int count, double discountPercentage) {
+    public Offer(String beverage, int count, double discountPercentage) {
         this.beverage = beverage;
         this.count = count;
         this.discountPercentage = discountPercentage;
     }
 
-    public Beverage getBeverage() {
+    public String getBeverage() {
         return beverage;
     }
 

@@ -1,15 +1,14 @@
 package com.crest.billgeneration.util;
 
-import com.crest.billgeneration.domain.Beverage;
-import com.crest.billgeneration.domain.Discounts;
+import com.crest.billgeneration.domain.BeverageInventory;
+import com.crest.billgeneration.domain.BeverageInventoryInitializer;
 import com.crest.billgeneration.domain.Offer;
 import com.crest.billgeneration.dto.Discount;
 import com.crest.billgeneration.dto.ItemResult;
-import com.crest.billgeneration.service.DiscountService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import static java.util.Objects.nonNull;
 
 /**
  * @author Ali
@@ -17,23 +16,26 @@ import java.util.Map;
  */
 
 //This class is optional for user story 2
-public class DiscountPerItem implements DiscountService {
+public class DiscountPerItem implements DiscountChain {
 
-    private Discounts discountsOnItem = new Discounts();
+    private BeverageInventory inventory = BeverageInventoryInitializer.getInventory();
+
+    private DiscountChain nextDiscount;
 
     @Override
-    public List<Discount> calculateDiscount(List<ItemResult> itemResults) {
+    public void setNextDiscount(DiscountChain nextDiscount) {
+        this.nextDiscount = nextDiscount;
+    }
 
-        Map<Beverage, Offer> discountsPerItemMap = discountsOnItem.getDiscountsPerItemMap();
-
-        List<Discount> discounts = new ArrayList<>();
+    @Override
+    public void calculateDiscount(List<ItemResult> itemResults, List<Discount> discounts) {
 
         itemResults.stream().forEach(item -> {
 
-            if (discountsPerItemMap.containsKey(item.getBeverage())) {
+            if (nonNull(inventory.getDiscount(item.getCode()))) {
 
                 //calculate discount for each item
-                Offer offer = discountsPerItemMap.get(item.getBeverage());
+                Offer offer = inventory.getDiscount(item.getCode());
                 if (item.getCount() >= offer.getCount()) {
 
                     double discountAmount = item.getPrice() * (offer.getDiscountPercentage() / 100);
@@ -47,7 +49,7 @@ public class DiscountPerItem implements DiscountService {
             }
         });
 
-        return discounts;
+        nextDiscount.calculateDiscount(itemResults, discounts);
 
     }
 

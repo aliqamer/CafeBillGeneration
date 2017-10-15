@@ -50,9 +50,9 @@ public class BillCalculatorImplTest {
     }
 
     private List<ItemResult> getItemResults() {
-        return asList(getItemResult(LATTE_COFFEE,1,30),
-                    getItemResult(ICE_TEA,3,45),
-                    getItemResult(PEPSI_COLD_DRINK,2,40));
+        return asList(getItemResult("Coffee - Latte",LATTE_COFFEE,1,30),
+                    getItemResult("Tea - Ice",ICE_TEA,3,45),
+                    getItemResult("Cold Drinks - Pepsi",PEPSI_COLD_DRINK,2,40));
     }
 
     private List<Discount> getDiscounts() {
@@ -68,10 +68,11 @@ public class BillCalculatorImplTest {
         return new ItemRequest(beverage, quantity);
     }
 
-    private ItemResult getItemResult(String beverage, int count, double price) {
+    private ItemResult getItemResult(String name, String code, int count, double price) {
 
         ItemResult itemResult = new ItemResult();
-        itemResult.setBeverage(beverage);
+        itemResult.setBeverage(name);
+        itemResult.setCode(code);
         itemResult.setCount(count);
         itemResult.setPrice(price);
 

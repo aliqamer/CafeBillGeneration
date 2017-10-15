@@ -15,9 +15,11 @@ public class DiscountChainUtil {
 
         DiscountChain discountAboveOneHundred = new DiscountAboveOneHundred();
         DiscountChain discountAboveTwoHundred = new DiscountAboveTwoHundred();
+        DiscountChain discountPerItem = new DiscountPerItem();
 
         discountAboveTwoHundred.setNextDiscount(discountAboveOneHundred);
+        discountPerItem.setNextDiscount(discountAboveTwoHundred);
 
-        return discountAboveTwoHundred;
+        return discountPerItem;
     }
 }

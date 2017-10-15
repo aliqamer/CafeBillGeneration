@@ -16,7 +16,7 @@ import static java.util.Objects.isNull;
  */
 public class ItemValidator {
 
-    private BeverageInventory inventory = BeverageInventoryInitializer.inventory;
+    private BeverageInventory inventory = BeverageInventoryInitializer.getInventory();
 
     /**
      * This method valids whether input has invalid quantity like 0 or negative
@@ -27,14 +27,14 @@ public class ItemValidator {
 
         for (ItemRequest request : itemRequests) {
 
-            if(isNull(inventory.getItem(request.getBeverage()))){
+            if(isNull(inventory.getItem(request.getCode()))){
 
-                throw new InvalidItemCodeException("Invalid Item Code provided : "+request.getBeverage());
+                throw new InvalidItemCodeException("Invalid Item Code provided : "+request.getCode());
             }
 
             if(request.getQuantity() <= 0){
 
-                throw new InvalidQuantityException("Invalid Quantity provided for : "+request.getBeverage());
+                throw new InvalidQuantityException("Invalid Quantity provided for : "+request.getCode());
             }
         }
     }
